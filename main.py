@@ -1,8 +1,9 @@
 import pandas as pd
+import numpy as np
 
 from minimal_K_F_method import minimal_K_F_method
 from start_raspr_method import start_rasp_method
-from service import sum_element, search_cost
+from service import sum_element, search_cost, add_kf_to_matrix_values, copy_mass
 from potential_method import potential_method
 
 
@@ -80,7 +81,6 @@ matrix = [[1, 4, 5, 3, 1, None], [2, 1, 2, 1, 2, None], [3, 1, 4, 2, 1, None]]
 
 
 df = pd.DataFrame(matrix, columns=buyers, index=sellers)
-
 print(df, end="\n\n\n")
 
 
@@ -93,17 +93,25 @@ matrix_goods = [[None, None, None, None, None, None], [None, None, None, None, N
 
 print("======START MATRIX GOOODS========")
 start_matrix_goods = start_rasp_method(matrix_goods, n, m, sellers, buyers)
-df = pd.DataFrame(start_matrix_goods, columns=buyers, index=sellers)
-print(df, end="\n\n\n")
 
+
+start_matrix_for_view = copy_mass(start_matrix_goods, n, m)
+start_matrix_for_view = add_kf_to_matrix_values(start_matrix_for_view, matrix, n, m)
+
+df = pd.DataFrame(start_matrix_for_view, columns=buyers, index=sellers)
+print(df, end="\n\n\n")
 print(f"Общая стоимость решения {search_cost(start_matrix_goods, matrix, n, m,)}", end="\n\n\n")
 
 
 
 
-print("========MINIMAL KF METHOD=========")
+print("===============MINIMAL KF METHOD============")
 minimal_matrix = minimal_K_F_method(start_matrix_goods, matrix, n, m, sellers, buyers)
-df = pd.DataFrame(minimal_matrix, columns=buyers, index=sellers)
+
+minimal_matrix_for_view = copy_mass(minimal_matrix, n, m)
+minimal_matrix_for_view = add_kf_to_matrix_values(minimal_matrix_for_view, matrix, n, m)
+
+df = pd.DataFrame(minimal_matrix_for_view, columns=buyers, index=sellers)
 print(df, end="\n\n\n")
 
 print(f"Общая стоимость решения {search_cost(minimal_matrix, matrix, n, m,)}", end="\n\n\n")
@@ -111,9 +119,9 @@ print(f"Общая стоимость решения {search_cost(minimal_matrix
 
 
 
-print("======METOD POTANCEVALOV=======")
+print("===========METOD POTANCEVALOV=================")
 potential_matrix = potential_method(minimal_matrix, matrix, n, m, 1)
-print(f"Общая стоимость решения {search_cost(potential_matrix, matrix, n, m,)}", end="\n\n\n")
+# print(f"Общая стоимость решения {search_cost(potential_matrix, matrix, n, m,)}", end="\n\n\n")
 
 
 
