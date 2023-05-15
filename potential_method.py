@@ -6,8 +6,9 @@ from potancial_utils.is_optimized import is_optimized
 
 def potential_method(minimal_matrix, matrix, n, m, iter):
     """Находим массив U и V"""
-    print(f"Итерация {iter} ", end="\n\n\n")
-    mass_U_V = get_U_V(minimal_matrix, matrix, n, m)
+
+
+    mass_U_V = get_U_V(minimal_matrix, matrix, n, m, 4)
     mass_U = mass_U_V[0]
     mass_V = mass_U_V[1]
 
@@ -18,7 +19,7 @@ def potential_method(minimal_matrix, matrix, n, m, iter):
     if i_j == True:
         return minimal_matrix
 
-
+    print(f"Итерация {iter} ", end="\n\n\n")
 
     mass_V_for_view = [f"V={i}" for i in mass_V]
     mass_U_for_view = [f"U={i}" for i in mass_U]
@@ -28,10 +29,14 @@ def potential_method(minimal_matrix, matrix, n, m, iter):
     print(f"DELTA {i_j}")
 
 
-    cycle(minimal_matrix ,matrix, i_j, n, m)
+    minimal_matrix = cycle(minimal_matrix ,matrix, i_j, n, m)
 
 
 
+    df = pd.DataFrame(minimal_matrix, columns=mass_V_for_view, index=mass_U_for_view)
+    print(df, end="\n\n\n")
+    # print(minimal_matrix)
+    # print(matrix)
 
-    # return potential_method(minimal_matrix, matrix, n, m, iter+1)
-    return minimal_matrix
+    return potential_method(minimal_matrix, matrix, n, m, iter+1)
+    # return potential_method(minimal_matrix, )

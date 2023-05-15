@@ -1,9 +1,9 @@
-def get_U_V(northwest_matrix, matrix, n, m):
+def get_U_V(northwest_matrix, matrix, n, m, iter):
     """Находим массив U и V"""
-    mass_u = [0] + [-999] * (n-1)
-    mass_v = [-999] * m
+    mass_u = [0] + [None] * (n-1)
+    mass_v = [None] * m
 
-    for k in range(4):
+    for k in range(iter):
         for i in range(n):
             for j in range(m):
 
@@ -11,24 +11,19 @@ def get_U_V(northwest_matrix, matrix, n, m):
                     matrix[i][j] = 0
 
                 if northwest_matrix[i][j] != None:
-                    if mass_v[j] != -999:
+
+                    if mass_v[j] is not None:
                         mass_u[i] = 0
                         mass_u[i] = matrix[i][j] - mass_v[j]
-                    if mass_u[i] == -999:
+                    if mass_u[i] is None and mass_v[j] is not None:
                         mass_u[i] = 0
                         mass_u[i] = matrix[i][j] - mass_v[j]
-                    if mass_v[j] == -999:
+                    if mass_v[j] is None and mass_u[i] is not None:
                         mass_v[j] = 0
                         mass_v[j] = matrix[i][j] - mass_u[i]
-
-        for i in range(n):
-            for j in range(m):
-                if abs(mass_u[i]) > 10:
-                    mass_u[i] = -999
-                if abs(mass_v[j]) > 10:
-                    mass_v[j] = -999
 
     mass = []
     mass.append(mass_u)
     mass.append(mass_v)
     return mass
+
