@@ -14,3 +14,15 @@ def sum_element(mass):
     for i in range(len(mass)):
         sum = sum + mass[i]
     return sum
+
+
+
+def search_cost(matrix_values, matrix, n, m):
+    sum = 0
+    for i in range(n):
+        for j in range(m):
+            if matrix_values[i][j] is not None:
+                if matrix[i][j] is not None:
+                    sum += matrix_values[i][j] * matrix[i][j]
+    return sum
+

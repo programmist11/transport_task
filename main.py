@@ -2,7 +2,7 @@ import pandas as pd
 
 from minimal_K_F_method import minimal_K_F_method
 from start_raspr_method import start_rasp_method
-from service import sum_element
+from service import sum_element, search_cost
 from potential_method import potential_method
 
 
@@ -90,38 +90,35 @@ matrix_goods = [[None, None, None, None, None, None], [None, None, None, None, N
 # KSYSHA
 # matrix_goods = [[None, None, None, None, None],  [None, None, None, None, None], [None, None, None, None, None], [None, None, None, None, None]]
 
-# df = pd.DataFrame(matrix_goods, columns=buyers, index=sellers)
-# print(df, end="\n\n\n\n")
-
-
 
 print("======START MATRIX GOOODS========")
 start_matrix_goods = start_rasp_method(matrix_goods, n, m, sellers, buyers)
 df = pd.DataFrame(start_matrix_goods, columns=buyers, index=sellers)
-print(df, end="\n\n\n\n\n")
+print(df, end="\n\n\n")
+
+print(f"Общая стоимость решения {search_cost(start_matrix_goods, matrix, n, m,)}", end="\n\n\n")
 
 
 
 
 print("========MINIMAL KF METHOD=========")
 minimal_matrix = minimal_K_F_method(start_matrix_goods, matrix, n, m, sellers, buyers)
-# northwest_matrix = [[100, None, None, None, 20, 130], [None, 120, None, None, None, 0], [None, None, 130, 100, 70, 70]]
 df = pd.DataFrame(minimal_matrix, columns=buyers, index=sellers)
-print(df, end="\n\n\n\n\n")
+print(df, end="\n\n\n")
+
+print(f"Общая стоимость решения {search_cost(minimal_matrix, matrix, n, m,)}", end="\n\n\n")
 
 
 
 
 print("======METOD POTANCEVALOV=======")
-potential_matrix = potential_method(minimal_matrix, matrix, n, m, 0)
-# df = pd.DataFrame(potential_matrix, columns=buyers, index=sellers)
-# print(df, end="\n\n\n\n\n")
+potential_matrix = potential_method(minimal_matrix, matrix, n, m, 1)
+print(f"Общая стоимость решения {search_cost(potential_matrix, matrix, n, m,)}", end="\n\n\n")
 
 
 
 
-# df = pd.DataFrame(dance_matrix, columns=buyers, index=sellers)
-# print(df, end="\n\n\n\n\n")
+
 
 
 
