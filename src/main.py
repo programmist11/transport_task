@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-from minimal_K_F_method import minimal_K_F_method
-from start_raspr_method import start_rasp_method
+from .methods.minimal_K_F_method import minimal_K_F_method
+from src.methods.start_raspr_method import start_rasp_method
 from service import sum_element, search_cost, add_kf_to_matrix_values, copy_mass
-from potential_method import potential_method
+from src.methods.potential_method import potential_method
 
 
 # n = int(input("Введите n "))

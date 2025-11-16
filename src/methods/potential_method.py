@@ -1,7 +1,7 @@
 import pandas as pd
-from potancial_utils.cycle import cycle
-from potancial_utils.get_U_V import get_U_V
-from potancial_utils.is_optimized import is_optimized
+from src.potancial_utils.cycle import cycle
+from src.potancial_utils.get_U_V import get_U_V
+from src.potancial_utils.is_optimized import is_optimized
 from service import add_kf_to_matrix_values, search_cost, copy_mass
 
 
